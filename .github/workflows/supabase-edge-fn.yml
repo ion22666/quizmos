@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Supabase CLI
         run: |
-          npm install -g supabase
+          npm install supabase --save-dev
 
       - name: Get changed functions
         id: detect_changes
@@ -51,7 +51,7 @@ jobs:
             # extract function folder name
             FUNC_DIR=$(echo "$FILE" | cut -d'/' -f3)
             echo "Deploying function: $FUNC_DIR"
-            supabase functions deploy "$FUNC_DIR" \
+            npx supabase functions deploy "$FUNC_DIR" \
               --project-ref "$SUPABASE_PROJECT_REF" \
               --access-token "$SUPABASE_ACCESS_TOKEN"
           done < changed_files.txt
