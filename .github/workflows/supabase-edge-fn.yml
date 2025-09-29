@@ -1,0 +1,57 @@
+name: Deploy Supabase Edge Functions
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  deploy-edge-functions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Supabase CLI
+        run: |
+          npm install -g supabase
+
+      - name: Get changed functions
+        id: detect_changes
+        run: |
+          # get list of changed files in ./supabase/functions
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^supabase/functions/' || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "no_functions_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "no_functions_changed=false" >> $GITHUB_OUTPUT
+            echo "$CHANGED_FILES" > changed_files.txt
+          fi
+
+      - name: Stop if no function changed
+        if: steps.detect_changes.outputs.no_functions_changed == 'true'
+        run: echo "No edge function changes detected. Skipping deployment."
+
+      - name: Deploy changed functions
+        if: steps.detect_changes.outputs.no_functions_changed == 'false'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+        run: |
+          while read -r FILE; do
+            # extract function folder name
+            FUNC_DIR=$(echo "$FILE" | cut -d'/' -f3)
+            echo "Deploying function: $FUNC_DIR"
+            supabase functions deploy "$FUNC_DIR" \
+              --project-ref "$SUPABASE_PROJECT_REF" \
+              --access-token "$SUPABASE_ACCESS_TOKEN"
+          done < changed_files.txt
