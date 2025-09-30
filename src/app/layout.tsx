@@ -1,11 +1,7 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "Quizmos",
@@ -19,12 +15,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`antialiased`}
       >
-          {children}
-        
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );
