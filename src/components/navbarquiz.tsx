@@ -1,6 +1,7 @@
 import ThemeSet from "@/components/theme-set"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+
 export default function NavBarHomePage(){
     return (<>
         <div className="flex w-full">
@@ -17,10 +18,10 @@ export default function NavBarHomePage(){
                 <div className="hidden md:flex max-2xl::w-2xl  items-center mr-2">
                     <div className="mr-1"><ThemeSet/></div>
                     <Button className="mr-1" variant='outline'>SignUp</Button>
-                    <Button className="mr-1">Login</Button>
+                    <Button >Login</Button>
                 </div>
                 <div className=" md:hidden">
-                    click
+                    <Button variant='secondary'>Open</Button>
                 </div>
             </div>
         </div>

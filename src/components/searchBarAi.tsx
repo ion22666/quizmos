@@ -5,7 +5,7 @@ export default async function SearchBarHomePage(){
             Welcome  user ?!
         </h1>
         <div className="flex justify-center items-center mt-2">
-            <Input  placeholder="Generate a quiz " className="w-90 md:w-3xl border-black xl:w-3/6 h-11" ></Input>
+            <Input  placeholder="Generate a quiz " className="w-85 md:w-3xl border-black xl:w-3/6 h-11" ></Input>
         </div>
     </>)
 } 
