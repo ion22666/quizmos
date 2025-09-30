@@ -1,7 +1,6 @@
+import ThemeSet from "@/components/theme-set"
 export default function HomePage(){
     return (<>
-    
-        <h1>MDA</h1>
-    
+        <ThemeSet/>
     </>)
 }
