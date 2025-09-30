@@ -7,12 +7,8 @@ const queryClient = new QueryClient()
 
 export default function LayoutHome({children}:Readonly<{children:React.ReactNode}>){
     return (<>
-        
         <QueryClientProvider client={queryClient}>
             {children}        
         </QueryClientProvider>
-
-    
-    
     </>)
 }
