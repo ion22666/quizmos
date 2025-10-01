@@ -36,7 +36,6 @@ export default function DialogsLoginAndSignUp(){
                     type="email" 
                     id="email"
                     placeholder="m@example.com"
-                    required
                 />
                 </div>
                 <div className="grid gap-2">
@@ -49,7 +48,7 @@ export default function DialogsLoginAndSignUp(){
                     Forgot your password?
                     </a>
                 </div>
-                <Input id="password" name="password" type="password" required  />
+                <Input id="password" name="password" type="password"   />
                 </div>
             </div>
             <DialogFooter className="inline">
@@ -79,10 +78,10 @@ export default function DialogsLoginAndSignUp(){
                 <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
+                    name="email"
+                    type="email" 
                     id="email"
-                    type="email"
                     placeholder="m@example.com"
-                    required
                 />
                 </div>
                 <div className="grid gap-2">
@@ -95,7 +94,7 @@ export default function DialogsLoginAndSignUp(){
                     Forgot your password?
                     </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password"  />
                 </div>
             </div>
             <DialogFooter className="inline">

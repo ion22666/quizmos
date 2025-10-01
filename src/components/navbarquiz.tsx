@@ -1,7 +1,8 @@
 import ThemeSet from "@/components/theme-set"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import DialogsLoginAndSignUp from "./dialogsloginsignup"
+
+import LoggedUser from "./islogged"
 
 export default function NavBarHomePage(){
     return (<>
@@ -18,7 +19,7 @@ export default function NavBarHomePage(){
                 </div>
                 <div className="hidden md:flex max-2xl::w-full  items-center mr-2">
                     <div className="mr-1"><ThemeSet/></div>
-                    <DialogsLoginAndSignUp/>
+                    <LoggedUser/>
                 </div>
                 <div className=" md:hidden">
                     <Button  className="leading-7 " variant='secondary'>Open</Button>
