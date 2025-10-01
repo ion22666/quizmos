@@ -44,3 +44,18 @@ export async function signup(formData: FormData) {
   revalidatePath('/', 'layout')
   redirect('/')
 }
+export async function signUpGoogle() {
+
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `http://${process.env.NODE_URL}/auth/callback`,
+    },
+  })
+
+  if (data.url) {
+    redirect(data.url) 
+  }  
+}
