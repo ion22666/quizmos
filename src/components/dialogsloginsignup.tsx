@@ -1,5 +1,5 @@
-
-import { login,signup } from "@/app/lib/actions"
+import { login,signup,signUpGoogle } from "@/app/lib/actions"
+import { FaGoogle } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
@@ -56,8 +56,8 @@ export default function DialogsLoginAndSignUp(){
                 <Button  formAction={signup} className="w-full mb-2 mt-2">
                     Sign Up 
                 </Button>
-                <Button variant="outline" className="w-full">
-                    Sign Up  with Google
+                <Button formAction={signUpGoogle} variant="outline" className="w-full">
+                     <FaGoogle/> Sign Up  with Google 
                 </Button>
             </DialogFooter>
             </form>
@@ -102,8 +102,8 @@ export default function DialogsLoginAndSignUp(){
                 <Button  formAction={login} className="w-full mb-2 mt-2">
                     Login
                 </Button>
-                <Button variant="outline" className="w-full">
-                    Login with Google
+                <Button formAction={signUpGoogle} variant="outline" className="w-full">
+                    <FaGoogle/> Login with Google 
                 </Button>
             </DialogFooter>
             </form>
