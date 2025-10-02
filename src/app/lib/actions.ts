@@ -17,7 +17,6 @@ export async function login(formData: FormData) {
   }
   
   const { error } = await supabase.auth.signInWithPassword(data)
-  console.log(data)
   if (error) {
     console.log('erroare',error)
   }
@@ -27,24 +26,34 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const supabase = await createClient()
+    const supabase = await createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
+    // type-casting here for convenience
+    // in practice, you should validate your inputs
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const displayName = formData.get('display_name') as string
+    const birthDate = formData.get('birth') as string
 
-  const { error } = await supabase.auth.signUp(data)
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      // options:{
+      //   data:{
+      //     display_name: displayName,
+      //     birth_date: birthDate,
+      //   }
+      // }
+    })
+      
+    if (error) {
+      redirect('/error')
+    }
 
-  if (error) {
-    redirect('/error')
-  }
-
-  revalidatePath('/', 'layout')
-  redirect('/')
+    revalidatePath('/', 'layout')
+    redirect('/')
 }
+
 export async function signUpGoogle() {
 
   const supabase = await createClient()
