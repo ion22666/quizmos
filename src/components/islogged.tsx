@@ -47,11 +47,11 @@ export default function LoggedUser(){
             setRefetch(prev=>!prev)
         }
     }
-
+    
     return (<>
         {!user?<DialogsLoginAndSignUp/>:
         <DropdownMenu>
-            <DropdownMenuTrigger asChild><Button variant='link'>{user?.user_metadata?.full_name}</Button></DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild><Button variant='link'>{user?.user_metadata?.full_name || user?.identities?.[0]?.identity_data?.display_name || "Display N/A"}</Button></DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />

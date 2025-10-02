@@ -3,7 +3,6 @@ import { Button } from "./ui/button"
 import { Send } from "lucide-react"
 export default async function SearchBarHomePage(){
     return(<>
-    
         <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
             Welcome  user ?!
         </h1>
