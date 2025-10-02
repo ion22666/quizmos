@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button"
 import { User } from "@supabase/supabase-js"
 import { signOut } from "@/app/lib/actions"
+import { useState } from "react"
 const isLoggedUser = async ():Promise<User | null> =>{
     const supabase =  createClientSR
     try{
@@ -29,11 +30,24 @@ const isLoggedUser = async ():Promise<User | null> =>{
 }
 
 export default function LoggedUser(){
+
+    const [refetch,setRefetch] = useState<boolean>(true)
+
     const {data:user,isLoading,error} = useQuery<User|null>({
-        queryKey:['data'],
+        queryKey:['data',refetch],
         queryFn: () => isLoggedUser(),
     })
-    console.log(user)
+
+    const haddleSignOut = async () => {
+        try{
+            await signOut()
+        }catch(err){
+            console.log(err)
+        }finally{
+            setRefetch(prev=>!prev)
+        }
+    }
+
     return (<>
         {!user?<DialogsLoginAndSignUp/>:
         <DropdownMenu>
@@ -43,7 +57,7 @@ export default function LoggedUser(){
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Score</DropdownMenuItem>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=>haddleSignOut()}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
         }
