@@ -28,3 +28,10 @@ type Quiz = {
 		answer: string | string[];
 	}[];
 };
+
+export type UserState = {
+	userName:string;
+	avatarUrl?:string;
+	email:string;
+	fullName?:string;
+}
